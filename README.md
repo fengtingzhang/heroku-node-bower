@@ -25,5 +25,5 @@ DEBUG=heroku-node-react ./bin/www
 ```
 
 # Demo App
-https://glacial-woodland-8134.herokuapp.com/
+https://platform-demo-9389.herokuapp.com/
 
