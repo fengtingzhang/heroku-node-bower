@@ -1,2 +1,2 @@
-web: gulp && ./bin/www
+web: npm start
 
