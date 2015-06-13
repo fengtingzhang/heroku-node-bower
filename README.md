@@ -11,6 +11,11 @@ foreman start web
 
 You should be able to access your app locally at http://localhost:5000
 
+# Start locally without foreman
+```
+npm start
+```
+
 # Debug
 To debug, or as an alternative to starting your app without installing
 heroku and foreman toolbelt, you can use the startup script directly
