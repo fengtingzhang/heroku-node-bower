@@ -5,7 +5,7 @@ var Data = [
     "prod": "no",
     "platform": "Platform",
     "name": "Documents",
-    "qa": "Core",
+    "category": "Core",
     "dev": "yes",
     "int": "yes",
     "qa": "no"
@@ -14,7 +14,7 @@ var Data = [
     "prod": "yes",
     "platform": "Platform",
     "name": "Search",
-    "qa": "Core",
+    "category": "Core",
     "dev": "yes",
     "int": "yes",
     "qa": "yes"
@@ -23,7 +23,7 @@ var Data = [
     "prod": "yes",
     "platform": "Platform",
     "name": "UIToolkit",
-    "qa": "Toolkit",
+    "category": "Toolkit",
     "dev": "yes",
     "int": "yes",
     "qa": "yes"
@@ -45,7 +45,7 @@ module.exports = React.createClass({
                             prod={domain.prod}
                             platform={domain.platform}
                             name={domain.name}
-                            qa={domain.qa}
+                            category={domain.category}
                             dev={domain.dev}
                             int={domain.int}
                             qa={domain.qa}

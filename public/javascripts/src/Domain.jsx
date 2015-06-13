@@ -5,7 +5,7 @@ module.exports = React.createClass({
         return (
             <a href="#" className="list-group-item">
                 <h4 class="list-group-item-heading listing-prod">
-                    <span className="listing-platform-name">{ this.props.platform }</span>
+                    <span className="label label-default">{ this.props.category }</span>
                 </h4>
                 <p className="list-group-item-text">
                     <span className="listing-realm">PROD: { this.props.prod }</span>
