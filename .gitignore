@@ -25,3 +25,11 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
+
+# Ignore bower components
+bower_components
+public/libraries
+
+# Ignore project build outputs
+public/javascripts/build
+public/stylesheets/css
