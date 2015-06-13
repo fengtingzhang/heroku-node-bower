@@ -1,2 +1,2 @@
-web: node node_modules/gulp/bin/gulp && ./bin/www
+web: gulp && ./bin/www
 
