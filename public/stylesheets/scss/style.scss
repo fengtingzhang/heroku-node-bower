@@ -2,7 +2,8 @@
 
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Arial", Helvetica, Arial, sans-serif;
+  background-color: rgba(244, 242, 238, 0.94);
 }
 
 a {
@@ -21,3 +22,10 @@ a {
   margin: 2px;
 }
 
+.list-group-item {
+  background-color: rgba(244, 242, 238, 0.94);
+}
+
+.fa {
+  color: #5972A0;
+}
