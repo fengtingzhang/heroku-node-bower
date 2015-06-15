@@ -25,7 +25,7 @@ body
       #navbar.collapse.navbar-collapse
         ul.nav.navbar-nav
           li.active
-            a(href='#') Dashboard
+            a(href='/?q=Platforms') Dashboard
              i.fa.fa-tachometer.fa2
           li
             a(href='#deploy') Deploy
@@ -33,7 +33,56 @@ body
           li
             a(href='#activities') Activities
               i.fa.fa-clock-o.fa-2
+        form.navbar-form.navbar-right
+          .input-group
+            input.form-control(type='text', placeholder='Search', name='q')
+            span.input-group-addon
+              i.fa.fa-search.fa-2 
+
   .container
-    .starter-template
-      block content
+    .row
+        .col-md-2
+
+            div
+            if response.hits.total > 0
+
+                dl
+                    dt Categories
+                    each category in response.aggregations.category.buckets
+                        dd
+                            a(href='/?q=' + query + '&agg_value=' + category.key + '&agg_field=category.raw' )
+                                =category.key + " (" + category.doc_count + ")"
+
+                dl
+                    dt DEV
+                    each dev in response.aggregations.dev.buckets
+                        dd
+                            a(href='/?q=' + query + '&agg_value=' + dev.key + '&agg_field=dev.raw' )
+                                =dev.key + " (" + dev.doc_count + ")"
+
+                dl
+                    dt INT
+                    each int in response.aggregations.int.buckets
+                        dd
+                            a(href='/?q=' + query + '&agg_value=' + int.key + '&agg_field=int.raw' )
+                                =int.key + " (" + int.doc_count + ")"
+
+                dl
+                    dt QA/UAT
+                    each qa in response.aggregations.qa.buckets
+                        dd
+                            a(href='/?q=' + query + '&agg_value=' + qa.key + '&agg_field=qa.raw' )
+                                =qa.key + " (" + qa.doc_count + ")"
+
+                dl
+                    dt PROD
+                    each prod in response.aggregations.prod.buckets
+                        dd
+                            a(href='/?q=' + query + '&agg_value=' + prod.key + '&agg_field=prod' )
+                                =prod.key + " (" + prod.doc_count + ")"
+
+        .col-md-10
+            h4 #{response.hits.total} Matching Services and Apps
+            .starter-template
+              block content
   script(src='/javascripts/build/app.js')
