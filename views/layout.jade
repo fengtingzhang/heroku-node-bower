@@ -41,6 +41,10 @@ body
 
   .container
     .row
+        .col-md-10
+            h4 #{response.hits.total} Matching Services and Apps
+            .starter-template
+              block content
         .col-md-2
 
             div
@@ -80,9 +84,4 @@ body
                         dd
                             a(href='/?q=' + query + '&agg_value=' + prod.key + '&agg_field=prod' )
                                 =prod.key + " (" + prod.doc_count + ")"
-
-        .col-md-10
-            h4 #{response.hits.total} Matching Services and Apps
-            .starter-template
-              block content
   script(src='/javascripts/build/app.js')
