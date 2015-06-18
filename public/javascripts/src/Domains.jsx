@@ -2,30 +2,38 @@ var React = require('react');
 
 module.exports = React.createClass({
     getInitialState: function(){
-        return { searchString: '' };
+        return { filterString: '' };
     },
 
     handleChange: function(e){
-        this.setState({searchString:e.target.value});
+        this.setState({filterString:e.target.value});
     },
 
     render: function() {
-        var libraries = this.props.items;
-        var searchString = this.state.searchString.trim().toLowerCase();
+        console.log('render');
+        var domains = this.props.items;
+        var filterString = this.state.filterString.trim().toLowerCase();
 
-        if(searchString.length > 0){
-            // We are searching. Filter the results.
-            libraries = libraries.filter(function(l){
-                return l.name.toLowerCase().match( searchString );
+        if(filterString.length > 0){
+            // Filter the results.
+            domains = domains.filter(function(d){
+                return d.name.toLowerCase().match( filterString ) || d.url.toLowerCase().match( filterString );
             });
         }
 
         return <div>
-                    <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here" />
-                    <ul> 
-                        { libraries.map(function(l){
-                            return <li>{l.name} <a href={l.url}>{l.url}</a></li>
-                        }) }
+                    <div className="input-group">
+                      <input type="text" id="filter-by" className="form-control" value={this.state.filterString} onChange={this.handleChange} placeholder="Filter" />
+                      <span className="input-group-addon" id="basic-addon"><i className="fa fa-search"></i></span>
+                    </div>
+                    <ul className="list-group"> 
+                        { 
+                            domains.map(function(l){
+                                return <li className="list-group-item"><i className="fa fa-cube"></i>{l.name}
+                                            <a href={l.url}>{l.url}</a>
+                                       </li>
+                            }) 
+                        }
                     </ul>
                 </div>;
     }

@@ -3,7 +3,7 @@ var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascri
 var React = require('react');
 var Domains = require('./Domains.jsx');
 
-var libraries = [
+var domains = [
     { name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/'},
     { name: 'AngularJS', url: 'https://angularjs.org/'},
     { name: 'jQuery', url: 'http://jquery.com/'},
@@ -20,8 +20,8 @@ var libraries = [
     { name: 'Koa', url: 'http://koajs.com/'},
 ];
 
-React.renderComponent(
-    <Domains items={ libraries }/>,
+React.render(
+    <Domains items={ domains }/>,
     document.getElementById('domains')
 );
 
