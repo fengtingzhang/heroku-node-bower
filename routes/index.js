@@ -16,76 +16,125 @@ var client = new elasticsearch.Client({
 var _index = "deployments";
 var _type = 'endpoint';
 
+var _index_mappings = {
+    "endpoint": {
+        "properties": {
+            "dev": {
+                "type": "string",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+            },
+            "category": {
+                "type": "string",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+            },
+            "name": {
+                "type": "string",
+                "fields": {
+                    "autocomplete": {"type": "string", "index_analyzer": "autocomplete"}
+                }
+            },
+            "platform": {
+                "type": "string"
+            },
+            "prod": {
+                "type": "string", "index": "not_analyzed"
+            },
+            "qa": {
+                "type": "string",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+            },
+            "int": {
+                "type": "string",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+            }
+        }
+    }
+};
+
+var _index_settings = {
+    "analysis": {
+        "filter": {
+            "autocomplete_filter": {
+                "type": "edge_ngram",
+                "min_gram": 1,
+                "max_gram": 10
+            }
+        },
+        "analyzer": {
+            "autocomplete": {
+                "type": "custom",
+                "tokenizer": "standard",
+                "filter": [
+                    "lowercase",
+                    "autocomplete_filter"
+                ]
+            }
+        }
+    }
+};
+
+
+var _simple_suggest_phrase = {
+    "field": "name",
+    "size": 1,
+    "real_word_error_likelihood": 0.95,
+    "max_errors": 0.5,
+    "gram_size": 2,
+    "direct_generator": [{
+        "field": "name",
+        "suggest_mode": "always",
+        "min_word_length": 1
+    }],
+    "highlight": {
+        "pre_tag": "<b><em>",
+        "post_tag": "</em></b>"
+    }
+};
+
+var _aggregations = {
+    "category": {
+        "terms": {
+            "field": "category.raw"
+        }
+    },
+    "dev": {
+        "terms": {
+            "field": "dev.raw"
+        }
+    },
+    "int": {
+        "terms": {
+            "field": "int.raw"
+        }
+    },
+    "qa": {
+        "terms": {
+            "field": "qa.raw"
+        }
+    },
+    "prod": {
+        "terms": {
+            "field": "prod"
+        }
+    }
+};
+
 // Provide a route for reprocessing some data
 router.get('/reprocess', function (req, res) {
     client.indices.delete({index: _index});
     client.indices.create({
         index: _index,
         body: {
-            "settings": {
-                "analysis": {
-                    "filter": {
-                        "autocomplete_filter": {
-                            "type": "edge_ngram",
-                            "min_gram": 1,
-                            "max_gram": 10
-                        }
-                    },
-                    "analyzer": {
-                        "autocomplete": {
-                            "type": "custom",
-                            "tokenizer": "standard",
-                            "filter": [
-                                "lowercase",
-                                "autocomplete_filter"
-                            ]
-                        }
-                    }
-                }
-            },
-            "mappings": {
-                "endpoint": {
-                    "properties": {
-                        "dev": {
-                            "type": "string",
-                            "fields": {
-                                "raw": {"type": "string", "index": "not_analyzed"}
-                            }
-                        },
-                        "category": {
-                            "type": "string",
-                            "fields": {
-                                "raw": {"type": "string", "index": "not_analyzed"}
-                            }
-                        },
-                        "name": {
-                            "type": "string",
-                            "fields": {
-                                "autocomplete": {"type": "string", "index_analyzer": "autocomplete"}
-                            }
-                        },
-                        "platform": {
-                            "type": "string"
-                        },
-                        "prod": {
-
-                            "type": "string", "index": "not_analyzed"
-                        },
-                        "qa": {
-                            "type": "string",
-                            "fields": {
-                                "raw": {"type": "string", "index": "not_analyzed"}
-                            }
-                        },
-                        "int": {
-                            "type": "string",
-                            "fields": {
-                                "raw": {"type": "string", "index": "not_analyzed"}
-                            }
-                        }
-                    }
-                }
-            }
+            "settings": _index_settings,
+            "mappings": _index_mappings
         }
 
     }, function (error, response) {
@@ -164,52 +213,11 @@ router.get('/', function(req, res) {
                 }
 
             },
-            "aggs": {
-                "category": {
-                    "terms": {
-                        "field": "category.raw"
-                    }
-                },
-                "dev": {
-                    "terms": {
-                        "field": "dev.raw"
-                    }
-                },
-                "int": {
-                    "terms": {
-                        "field": "int.raw"
-                    }
-                },
-                "qa": {
-                    "terms": {
-                        "field": "qa.raw"
-                    }
-                },
-                "prod": {
-                    "terms": {
-                        "field": "prod"
-                    }
-                }
-            },
+            "aggs": _aggregations,
             "suggest": {
                 "text": queryString,
                 "simple_phrase": {
-                    "phrase": {
-                        "field": "name",
-                        "size": 1,
-                        "real_word_error_likelihood": 0.95,
-                        "max_errors": 0.5,
-                        "gram_size": 2,
-                        "direct_generator": [{
-                            "field": "name",
-                            "suggest_mode": "always",
-                            "min_word_length": 1
-                        }],
-                        "highlight": {
-                            "pre_tag": "<b><em>",
-                            "post_tag": "</em></b>"
-                        }
-                    }
+                    "phrase": _simple_suggest_phrase
                 }
             }
         }
