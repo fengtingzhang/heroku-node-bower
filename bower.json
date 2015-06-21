@@ -1,8 +1,8 @@
 {
-  "name": "heroku-node-react",
+  "name": "heroku-node-bower",
   "version": "0.0.1",
-  "homepage": "https://github.com/fengtingzhang/heroku-node-react",
-  "description": "Deployed node react module",
+  "homepage": "https://github.com/fengtingzhang/heroku-node-bower",
+  "description": "Deployed node bower module",
   "main": "./bin/www",
   "license": "MIT",
   "private": true,

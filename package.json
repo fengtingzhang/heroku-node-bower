@@ -1,7 +1,7 @@
 {
-  "name": "heroku-node-react",
+  "name": "heroku-node-bower",
   "version": "0.0.1",
-  "description": "Heroku Node React",
+  "description": "Heroku Node Bower",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",

@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('heroku-node-react:server');
+var debug = require('debug')('heroku-node-bower:server');
 var http = require('http');
 
 /**
