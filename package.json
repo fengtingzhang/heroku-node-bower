@@ -23,6 +23,6 @@
     "react": "^16.7.0",
     "reactify": "^1.0.0",
     "serve-favicon": "~2.5.0",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^2.0.0"
   }
 }
