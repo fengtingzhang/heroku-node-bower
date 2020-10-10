@@ -10,7 +10,7 @@
   "dependencies": {
     "body-parser": "~1.18.3",
     "bower": "^1.3.12",
-    "browserify": "^16.2.3",
+    "browserify": "^17.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~4.1.1",
     "elasticsearch": "^15.2.0",
