@@ -20,7 +20,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "react": "^16.7.0",
+    "react": "^17.0.2",
     "reactify": "^1.0.0",
     "serve-favicon": "~2.5.0",
     "vinyl-source-stream": "^2.0.0"
